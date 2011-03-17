@@ -13,20 +13,6 @@ AM_PROG_CC_C_O
 
 AC_SEARCH_LIBS([atan2], [m] ,[], AC_MSG_ERROR([libdmtx-utils requires libm]))
 
-case $target_os in
-   cygwin*)
-      ARCH=cygwin ;;
-   darwin*)
-      ARCH=macosx ;;
-   freebsd*)
-      ARCH=freebsd ;;
-   linux-gnu*)
-      ARCH=linux-gnu ;;
-   mingw32*)
-      ARCH=mingw32 ;;
-esac
-AM_CONDITIONAL([TARGET_MACOSX], [test x$ARCH = xmacosx])
-
 AC_ARG_ENABLE(
    [dmtxquery],
    AS_HELP_STRING([--disable-dmtxquery], [do not build the dmtxquery command line utility]),

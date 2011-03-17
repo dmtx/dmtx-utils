@@ -32,7 +32,6 @@ EXTRA_DIST = KNOWNBUG \
 	README.unix \
 	README.visualc \
 	m4 \
-	project \
 	script/check_all.sh \
 	script/check_comments.sh \
 	script/check_copyright.sh \
