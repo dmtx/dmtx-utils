@@ -3,14 +3,13 @@ AM_INIT_AUTOMAKE([-Wall -Werror gnu])
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([
-   Makefile
-])
+AC_CONFIG_FILES([Makefile])
 
 AC_PROG_CC
 AC_PROG_LIBTOOL
 AM_PROG_CC_C_O
 
+AC_SEARCH_LIBS([dmtxVersion], [dmtx] ,[], AC_MSG_ERROR([libdmtx-utils requires libdmtx]))
 AC_SEARCH_LIBS([atan2], [m] ,[], AC_MSG_ERROR([libdmtx-utils requires libm]))
 
 AC_ARG_ENABLE(
@@ -45,8 +44,7 @@ if test x$dmtxread = xyes \
    AC_CHECK_FUNCS([getopt_long])
 fi
 
-if test x$dmtxread = xyes \
-      -o x$dmtxwrite = xyes; then
+if test x$dmtxread = xyes -o x$dmtxwrite = xyes; then
    ifdef([PKG_CHECK_MODULES],
          [PKG_CHECK_MODULES(
             MAGICK,
