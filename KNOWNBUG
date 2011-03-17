@@ -1,32 +1,14 @@
-Bugs in libdmtx
+Bugs in libdmtx-utils
 -----------------------------------------------------------------
 
-1. libdtmx - Core Library
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-While regular encoder works fine, the optimizer feature (--best)
-still occasionally generates codeword sequences that are not 100%
-legal according to the ISO specification.  Everything still
-appears to decode properly, but until I have time to go through
-every corner case and validate the behavior this will be treated
-as an experimental feature.  For now dmtxwrite will encode using
-a straight ASCII scheme by default.
-
-Data Mosaic encoding doesn't produce output for certain sizes:
-
-   $ echo -n foo | dmtxwrite -M    <-- works
-   $ echo -n fooo | dmtxwrite -M   <-- doesn't work
-   $ echo -n foooo | dmtxwrite -M  <-- works
-
-
-2. dmtxread
+1. dmtxread
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 The follow options are considered experimental:
   -M,  --mosaic              interpret as Data Mosaic barcodes
 
 
-3. dmtxwrite
+2. dmtxwrite
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 The follow options are considered experimental:
@@ -40,45 +22,7 @@ The follow options are not implemented yet:
   -r,  --rotate=DEGREES      rotation angle
 
 
-4. Test Programs
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-multi_test:
-  * No known issues
-
-rotate_test:
-  * No known issues
-
-simple_test:
-  * No known issues
-
-unit_test:
-  * No known issues
-
-
-5. Wrappers
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-cocoa wrapper:
-  * No known issues
-
-java wrapper:
-  * No known issues
-
-net wrapper:
-  * No known issues
-
-php wrapper:
-  * No known issues
-
-python wrapper:
-  * No known issues
-
-ruby wrapper:
-  * No known issues
-
-
-6. Scripts in the script directory
+3. Scripts in the script directory
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 The check_headers.pl script verifies that every function has

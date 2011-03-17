@@ -36,7 +36,7 @@ Contact: mike@dragonflylogic.com
 #include <stdarg.h>
 #include <assert.h>
 #include <wand/magick-wand.h>
-#include "../../dmtx.h"
+#include <dmtx.h>
 #include "../common/dmtxutil.h"
 
 #if ENABLE_NLS

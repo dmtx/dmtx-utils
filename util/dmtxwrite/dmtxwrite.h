@@ -37,7 +37,7 @@ Contact: mike@dragonflylogic.com
 #include <fcntl.h>
 #include <assert.h>
 #include <wand/magick-wand.h>
-#include "../../dmtx.h"
+#include <dmtx.h>
 #include "../common/dmtxutil.h"
 
 #ifdef HAVE_UNISTD_H

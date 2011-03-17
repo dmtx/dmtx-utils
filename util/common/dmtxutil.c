@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <assert.h>
-#include "../../dmtx.h"
+#include <dmtx.h>
 #include "dmtxutil.h"
 
 #undef ISDIGIT
