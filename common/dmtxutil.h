@@ -26,7 +26,7 @@ Contact: mike@dragonflylogic.com
 #define __DMTXUTIL_H__
 
 #ifdef HAVE_CONFIG_H
-#include "../../config.h"
+#include "../config.h"
 #endif
 
 #ifdef HAVE_SYSEXITS_H

@@ -7,7 +7,19 @@
 ACLOCAL_AMFLAGS = -I m4
 AM_CPPFLAGS = -Wshadow -Wall -pedantic -ansi
 
-SUBDIRS = . util
+if ENABLE_DMTXQUERY
+   DMTXQUERY_DIR = dmtxquery
+endif
+
+if ENABLE_DMTXREAD
+   DMTXREAD_DIR = dmtxread
+endif
+
+if ENABLE_DMTXWRITE
+   DMTXWRITE_DIR = dmtxwrite
+endif
+
+SUBDIRS = . $(DMTXQUERY_DIR) $(DMTXREAD_DIR) $(DMTXWRITE_DIR)
 
 dist_man_MANS = man/dmtxread.1 man/dmtxwrite.1 man/dmtxquery.1
 

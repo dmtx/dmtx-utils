@@ -5,7 +5,6 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
    Makefile
-   util/Makefile
 ])
 
 AC_PROG_CC
@@ -75,15 +74,15 @@ if test x$dmtxread = xyes \
 fi
 
 if test x$dmtxquery = xyes; then
-   AC_CONFIG_FILES([util/dmtxquery/Makefile])
+   AC_CONFIG_FILES([dmtxquery/Makefile])
 fi
 
 if test x$dmtxread = xyes; then
-   AC_CONFIG_FILES([util/dmtxread/Makefile])
+   AC_CONFIG_FILES([dmtxread/Makefile])
 fi
 
 if test x$dmtxwrite = xyes; then
-   AC_CONFIG_FILES([util/dmtxwrite/Makefile])
+   AC_CONFIG_FILES([dmtxwrite/Makefile])
 fi
 
 AC_OUTPUT
