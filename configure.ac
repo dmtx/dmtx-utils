@@ -12,13 +12,16 @@ AM_PROG_CC_C_O
 AC_SEARCH_LIBS([dmtxVersion], [dmtx] ,[], AC_MSG_ERROR([libdmtx-utils requires libdmtx]))
 AC_SEARCH_LIBS([atan2], [m] ,[], AC_MSG_ERROR([libdmtx-utils requires libm]))
 
+AC_CHECK_HEADERS([sysexits.h])
+AC_CHECK_HEADERS([getopt.h])
+AC_CHECK_FUNCS([getopt_long])
+
 AC_ARG_ENABLE(
    [dmtxquery],
    AS_HELP_STRING([--disable-dmtxquery], [do not build the dmtxquery command line utility]),
    [dmtxquery="$enableval"],
    [dmtxquery="yes"]
 )
-AM_CONDITIONAL([ENABLE_DMTXQUERY], [test x$dmtxquery = xyes])
 
 AC_ARG_ENABLE(
    [dmtxread],
@@ -26,7 +29,6 @@ AC_ARG_ENABLE(
    [dmtxread="$enableval"],
    [dmtxread="yes"]
 )
-AM_CONDITIONAL([ENABLE_DMTXREAD], [test x$dmtxread = xyes])
 
 AC_ARG_ENABLE(
    [dmtxwrite],
@@ -34,14 +36,21 @@ AC_ARG_ENABLE(
    [dmtxwrite="$enableval"],
    [dmtxwrite="yes"]
 )
+
+AM_CONDITIONAL([ENABLE_DMTXQUERY], [test x$dmtxquery = xyes])
+AM_CONDITIONAL([ENABLE_DMTXREAD], [test x$dmtxread = xyes])
 AM_CONDITIONAL([ENABLE_DMTXWRITE], [test x$dmtxwrite = xyes])
 
-if test x$dmtxread = xyes \
-      -o x$dmtxwrite = xyes \
-      -o x$dmtxquery = xyes; then
-   AC_CHECK_HEADERS([sysexits.h])
-   AC_CHECK_HEADERS([getopt.h])
-   AC_CHECK_FUNCS([getopt_long])
+if test x$dmtxquery = xyes; then
+   AC_CONFIG_FILES([dmtxquery/Makefile])
+fi
+
+if test x$dmtxread = xyes; then
+   AC_CONFIG_FILES([dmtxread/Makefile])
+fi
+
+if test x$dmtxwrite = xyes; then
+   AC_CONFIG_FILES([dmtxwrite/Makefile])
 fi
 
 if test x$dmtxread = xyes -o x$dmtxwrite = xyes; then
@@ -55,18 +64,6 @@ if test x$dmtxread = xyes -o x$dmtxwrite = xyes; then
    )
    AC_SUBST(MAGICK_CFLAGS)
    AC_SUBST(MAGICK_LIBS)
-fi
-
-if test x$dmtxquery = xyes; then
-   AC_CONFIG_FILES([dmtxquery/Makefile])
-fi
-
-if test x$dmtxread = xyes; then
-   AC_CONFIG_FILES([dmtxread/Makefile])
-fi
-
-if test x$dmtxwrite = xyes; then
-   AC_CONFIG_FILES([dmtxwrite/Makefile])
 fi
 
 AC_OUTPUT
