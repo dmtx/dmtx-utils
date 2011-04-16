@@ -119,7 +119,7 @@ GetDefaultOptions(void)
    opt.codewords = DmtxFalse;
    opt.marginSize = 10;
    opt.moduleSize = 5;
-   opt.scheme = DmtxSchemeAscii;
+   opt.scheme = DmtxSchemeAutoBest;
    opt.preview = DmtxFalse;
    opt.rotate = 0;
    opt.sizeIdx = DmtxSymbolSquareAuto;
