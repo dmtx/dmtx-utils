@@ -9,8 +9,13 @@ AC_PROG_CC
 AC_PROG_LIBTOOL
 AM_PROG_CC_C_O
 
-AC_SEARCH_LIBS([dmtxVersion], [dmtx] ,[], AC_MSG_ERROR([libdmtx-utils requires libdmtx]))
+ifdef([PKG_CHECK_MODULES], [], [AC_MSG_ERROR([Building dmtxread/dmtxwrite requires a working autoconf/pkg-config])])
+
 AC_SEARCH_LIBS([atan2], [m] ,[], AC_MSG_ERROR([libdmtx-utils requires libm]))
+
+PKG_CHECK_MODULES(DMTX, libdmtx >= 0.7.0, [], AC_MSG_ERROR([dmtxread/dmtxwrite requires libdmtx >= 0.7.0]))
+AC_SUBST(DMTX_CFLAGS)
+AC_SUBST(DMTX_LIBS)
 
 AC_CHECK_HEADERS([sysexits.h])
 AC_CHECK_HEADERS([getopt.h])
@@ -18,21 +23,21 @@ AC_CHECK_FUNCS([getopt_long])
 
 AC_ARG_ENABLE(
    [dmtxquery],
-   AS_HELP_STRING([--disable-dmtxquery], [do not build the dmtxquery command line utility]),
+   AS_HELP_STRING([--disable-dmtxquery], [do not build the dmtxquery utility]),
    [dmtxquery="$enableval"],
-   [dmtxquery="yes"]
+   [dmtxquery="no"]
 )
 
 AC_ARG_ENABLE(
    [dmtxread],
-   AS_HELP_STRING([--disable-dmtxread], [do not build the dmtxread command line utility]),
+   AS_HELP_STRING([--disable-dmtxread], [do not build the dmtxread utility]),
    [dmtxread="$enableval"],
    [dmtxread="yes"]
 )
 
 AC_ARG_ENABLE(
    [dmtxwrite],
-   AS_HELP_STRING([--disable-dmtxwrite], [do not build the dmtxwrite command line utility]),
+   AS_HELP_STRING([--disable-dmtxwrite], [do not build the dmtxwrite utility]),
    [dmtxwrite="$enableval"],
    [dmtxwrite="yes"]
 )
@@ -54,14 +59,7 @@ if test x$dmtxwrite = xyes; then
 fi
 
 if test x$dmtxread = xyes -o x$dmtxwrite = xyes; then
-   ifdef([PKG_CHECK_MODULES],
-         [PKG_CHECK_MODULES(
-            MAGICK,
-            Wand >= 6.2.4,
-            true,
-            AC_MSG_ERROR([[dmtxread/dmtxwrite requires Wand >= 6.2.4]]))],
-         [AC_MSG_ERROR([Building dmtxread/dmtxwrite requires a working autoconf/pkg-config])]
-   )
+   PKG_CHECK_MODULES(MAGICK, Wand >= 6.2.4, [], AC_MSG_ERROR([dmtxread/dmtxwrite requires Wand >= 6.2.4]))
    AC_SUBST(MAGICK_CFLAGS)
    AC_SUBST(MAGICK_LIBS)
 fi
