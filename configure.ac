@@ -2,6 +2,7 @@ AC_INIT([libdmtx-utils], [0.7.3], [mike@dragonflylogic.com])
 AM_INIT_AUTOMAKE([-Wall -Werror gnu])
 
 AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_LIBOBJ_DIR([common])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile])
 
@@ -19,7 +20,7 @@ AC_SUBST(DMTX_LIBS)
 
 AC_CHECK_HEADERS([sysexits.h])
 AC_CHECK_HEADERS([getopt.h])
-AC_CHECK_FUNCS([getopt_long])
+AC_CHECK_FUNC([getopt_long], [], [ AC_LIBOBJ([getopt]) AC_LIBOBJ([getopt1]) ])
 
 AC_ARG_ENABLE(
    [dmtxquery],
