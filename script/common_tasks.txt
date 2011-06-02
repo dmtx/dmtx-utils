@@ -3,21 +3,6 @@
 Common Tasks
 -----------------------------------------------------------------
 
-Set file to be executable
-$ svn propset svn:executable ON filename.sh
-
-Enable $Id$ keyword expansion for a newly added file
-$ svn propset svn:keywords 'Id' filename.sh
-
-Update experimental branch with latest trunk files
-$ svn co https://libdmtx.svn.sourceforge.net/svnroot/libdmtx/branches/experimental-mbl dmtx_exp
-$ cd dmtx_exp
-$ svn merge --ignore-ancestry \
-      https://libdmtx.svn.sourceforge.net/svnroot/libdmtx/branches/experimental-mbl \
-      https://libdmtx.svn.sourceforge.net/svnroot/libdmtx/trunk .
-(verify updates)
-$ svn commit
-
 Generate splint warnings
 $ splint -posix-strict-lib dmtx.c
 
@@ -30,8 +15,6 @@ Release Checklist
 2) o Create copy of this file as living checklist
 
 3) o Test for common style and formatting issues
-
-   o $ script/check_all.sh .
 
 4) o Review and close applicable bugs and feature requests
 
@@ -47,29 +30,14 @@ Release Checklist
    o README.mingw            o README.osx
    o README.unix             o README.visualc
 
-   o test/rotate_test/README
-   o project/visualc9/README.txt
-
-   o wrapper/cocoa/README    o wrapper/java/README
-   o wrapper/net/README      o wrapper/php/README
-   o wrapper/python/README   o wrapper/ruby/README
-   o wrapper/vala/README
-
    o man/dmtxread.1          o man/dmtxwrite.1
-   o man/dmtxquery.1         o man/libdmtx.3
+   o man/dmtxquery.1
 
 6) o Update version number in appropriate files
 
    o configure.ac
    o dmtx.h
-   o man/libdmtx.3
-   o wrapper/cocoa/README
-   o wrapper/java/README
-   o wrapper/net/README
-   o wrapper/php/README
-   o wrapper/python/README
-   o wrapper/ruby/README
-   o wrapper/vala/README
+   o man/dmtxXXX
 
 7) o Update release date in appropriate files
 
@@ -89,6 +57,8 @@ Release Checklist
    o wrapper/vala/README
 
 8) o Perform final test build
+
+   o XXX install tagged version of libdmtx
 
    o $ svn update # get any pending updates
    o # final commit
