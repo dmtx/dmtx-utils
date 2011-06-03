@@ -11,9 +11,9 @@ function RunTest()
    for dir in $(find "$DMTXUTILS" -type d); do
 
       if [[ "$dir" != "$DMTXUTILS" &&
-            "$dir" != "$DMTXUTILS/util/dmtxread" &&
-            "$dir" != "$DMTXUTILS/util/dmtxwrite" &&
-            "$dir" != "$DMTXUTILS/test/script" ]]; then
+            "$dir" != "$DMTXUTILS/dmtxread" &&
+            "$dir" != "$DMTXUTILS/dmtxwrite" &&
+            "$dir" != "$DMTXUTILS/dmtxquery" ]]; then
          continue
       fi
 
