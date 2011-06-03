@@ -8,15 +8,12 @@ function RunTest()
    echo "   $SCRIPT"
 
    ERRORS=0
-   for dir in $(find "$LIBDMTX" -type d); do
+   for dir in $(find "$DMTXUTILS" -type d); do
 
-      if [[ "$dir" != "$LIBDMTX" &&
-            "$dir" != "$LIBDMTX/util/dmtxread" &&
-            "$dir" != "$LIBDMTX/util/dmtxwrite" &&
-            "$dir" != "$LIBDMTX/test/rotate_test" &&
-            "$dir" != "$LIBDMTX/test/simple_test" &&
-            "$dir" != "$LIBDMTX/test/unit_test" &&
-            "$dir" != "$LIBDMTX/test/script" ]]; then
+      if [[ "$dir" != "$DMTXUTILS" &&
+            "$dir" != "$DMTXUTILS/util/dmtxread" &&
+            "$dir" != "$DMTXUTILS/util/dmtxwrite" &&
+            "$dir" != "$DMTXUTILS/test/script" ]]; then
          continue
       fi
 
@@ -39,14 +36,14 @@ function RunTest()
          fi
 
          if [[ "$SCRIPT_TYPE" = "sh" ]]; then
-            $LIBDMTX/script/$SCRIPT $file
+            $DMTXUTILS/script/$SCRIPT $file
             ERRORS=$(( ERRORS + $? ))
          elif [[ "$SCRIPT_TYPE" = "pl" ]]; then
             PERL=$(which perl)
             if [[ $? -ne 0 ]]; then
                echo "No perl interpreter found.  Skipping $SCRIPT test."
             else
-               $PERL $LIBDMTX/script/$SCRIPT $file
+               $PERL $DMTXUTILS/script/$SCRIPT $file
                ERRORS=$(( ERRORS + $? ))
             fi
          fi
@@ -56,19 +53,19 @@ function RunTest()
    return $ERRORS
 }
 
-LIBDMTX="$1"
-if [[ -z "$LIBDMTX" || ! -d "$LIBDMTX/script" ]]; then
-   echo "Must provide valid LIBDMTX directory"
+DMTXUTILS="$1"
+if [[ -z "$DMTXUTILS" || ! -d "$DMTXUTILS/script" ]]; then
+   echo "Must provide valid DMTXUTILS directory"
    exit 1
 fi
 
-RunTest check_comments.sh || exit 1
-RunTest check_copyright.sh || exit 1
-RunTest check_keyword.sh || exit 1
-RunTest check_license.sh || exit 1
-RunTest check_spacing.sh || exit 1
-RunTest check_whitespace.sh || exit 1
-RunTest check_headers.pl || exit 1
+RunTest check_comments.sh
+RunTest check_copyright.sh
+RunTest check_keyword.sh
+RunTest check_license.sh
+RunTest check_spacing.sh
+RunTest check_whitespace.sh
+RunTest check_headers.pl
 RunTest check_todo.sh
 
 exit 0
