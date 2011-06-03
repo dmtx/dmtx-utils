@@ -30,7 +30,6 @@ EXTRA_DIST = KNOWNBUG \
 	README.mingw \
 	README.osx \
 	README.unix \
-	README.visualc \
 	m4 \
 	script/check_all.sh \
 	script/check_comments.sh \
@@ -40,5 +39,4 @@ EXTRA_DIST = KNOWNBUG \
 	script/check_license.sh \
 	script/check_spacing.sh \
 	script/check_todo.sh \
-	script/check_whitespace.sh \
-	script/dist-image.sh
+	script/check_whitespace.sh
