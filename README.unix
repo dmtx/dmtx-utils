@@ -2,7 +2,7 @@
             libdmtx - Open Source Data Matrix Software
 =================================================================
 
-                   libdmtx README file (Unix)
+                 dmtx-utils README file (Unix)
 
 This README.unix file contains information on installing and
 using libdmtx on Unix. The general README file, also found in
@@ -10,31 +10,26 @@ this directory, contains a high level summary of libdmtx and its
 components.
 
 
-1. Installing libdmtx on Unix
+1. Installing dmtx-utils on Unix
 -----------------------------------------------------------------
 
-libdmtx can be installed on Unix using the instructions provided
-in the general README file. However, please see below for
-additional details that might benefit users on this platform.
+dmtx-utils can be installed on Unix using the instructions
+provided in the general README file. However, please see below
+for additional details that might benefit users on this platform.
 
 
 2. Known Issues
 -----------------------------------------------------------------
 
-libdmtx is known to have been compiled on the following flavors
-of Unix:
+dmtx-utils is known to work on the following commercial Unix
+versions:
 
-   * Solaris
-   * HP-UX
    * AIX
+   * HP-UX
+   * Solaris
 
+However, building libdmtx from source on these operating systems
+can be tricky due to their non-GNU conventions. Users may wish to
+evaluate the trial binaries available at:
 
-3. This Document
------------------------------------------------------------------
-
-This document is derived from the wiki page located at:
-
-  http://libdmtx.wikidot.com/libdmtx-on-unix
-
-If you find an error or have additional helpful information,
-please edit the wiki directly with your updates.
+  http://www.dragonflylogic.com/downloads

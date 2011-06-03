@@ -2,7 +2,7 @@
             libdmtx - Open Source Data Matrix Software
 =================================================================
 
-                 libdmtx README file (GNU/Linux)
+               dmtx-utils README file (GNU/Linux)
 
 This README.linux file contains information on installing and
 using libdmtx on GNU/Linux. The general README file, also found
@@ -10,34 +10,20 @@ in this directory, contains a high level summary of libdmtx and
 its components.
 
 
-1. Installing libdmtx on GNU/Linux
+1. Installing dmtx-utils on GNU/Linux
 -----------------------------------------------------------------
 
-libdmtx can be installed on GNU/Linux using the instructions
+dmtx-utils can be installed on GNU/Linux using the instructions
 provided in the general README file. However, please see below
 for additional details that might benefit users on this platform.
 
 
-2. Installing Pre-Compiled Binaries
+2. Pre-Compiled Binaries
 -----------------------------------------------------------------
 
-Debian users are the big winners because libdmtx is available in
-the main testing and unstable repositories (although not in
-stable yet). The Debian package is named "libdmtx-utils".
+Many Linux distributions offer pre-compiled libdmtx binaries in
+their package repositories. This can be a real time saver if you
+aren't required to build from source for other reasons.
 
-On Ubuntu Server, ImageMagick may install incorrectly but without
-errors since the server version does not come with installed
-image libraries and no GUI (GTK or KDE) so it doesn't correctly
-define the needed functions. Installing under Ubuntu Desktop
-edition works with no special modifications.
-
-
-3. This Document
------------------------------------------------------------------
-
-This document is derived from the wiki page located at:
-
-  http://libdmtx.wikidot.com/libdmtx-on-gnu-linux
-
-If you find an error or have additional helpful information,
-please edit the wiki directly with your updates.
+Go to http://www.dragonflylogic.com/downloads for a list of all
+download options available on your system.
