@@ -1,4 +1,4 @@
-AC_INIT([libdmtx-utils], [0.7.3], [mike@dragonflylogic.com])
+AC_INIT([dmtx-utils], [0.7.4], [mike@dragonflylogic.com])
 AM_INIT_AUTOMAKE([-Wall -Werror gnu])
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -12,7 +12,7 @@ AM_PROG_CC_C_O
 
 ifdef([PKG_CHECK_MODULES], [], [AC_MSG_ERROR([Building dmtxread/dmtxwrite requires a working autoconf/pkg-config])])
 
-AC_SEARCH_LIBS([atan2], [m] ,[], AC_MSG_ERROR([libdmtx-utils requires libm]))
+AC_SEARCH_LIBS([atan2], [m] ,[], AC_MSG_ERROR([dmtx-utils requires libm]))
 
 PKG_CHECK_MODULES(DMTX, libdmtx >= 0.7.0, [], AC_MSG_ERROR([dmtxread/dmtxwrite requires libdmtx >= 0.7.0]))
 AC_SUBST(DMTX_CFLAGS)
@@ -26,7 +26,7 @@ AC_ARG_ENABLE(
    [dmtxquery],
    AS_HELP_STRING([--disable-dmtxquery], [do not build the dmtxquery utility]),
    [dmtxquery="$enableval"],
-   [dmtxquery="no"]
+   [dmtxquery="yes"]
 )
 
 AC_ARG_ENABLE(
