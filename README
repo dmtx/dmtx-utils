@@ -2,68 +2,26 @@
             libdmtx - Open Source Data Matrix Software
 =================================================================
 
-               libdmtx README file (all platforms)
+             dmtx-utils README file (all platforms)
 
-This summary of the libdmtx package applies generally to all
+This summary of the dmtx-utils package applies generally to all
 platforms. For instructions regarding your specific platform
 please also read the README.xxx file in this directory that
 matches your system (e.g., README.linux, README.cygwin,
-README.osx, README.visualc, etc...).
+README.osx, etc...).
 
 
 1. Introduction
 -----------------------------------------------------------------
 
 libdmtx is a software library that enables programs to read and
-write Data Matrix barcodes of the modern ECC200 variety. The
-library runs natively on several platforms, and can be accessed
-by multiple languages using the libdmtx language wrappers. The
-utility programs dmtxread and dmtxwrite provide a command line
-interface for libdmtx, and serve as a good reference for
-developers writing their own libdmtx-enabled programs.
+write Data Matrix barcodes of the modern ECC200 variety. This
+package, dmtx-utils, provides command line utilities that allow
+scripts and command line users to use libdmtx functionality.
 
 
-2. Package Components
+2. Installation
 -----------------------------------------------------------------
-
-libdmtx serves a diverse audience and contains many components,
-some of which may not be useful to you. Components fall into one
-of four categories:
-
-  * Core library      (useful to all libdmtx users)
-  * Utility programs  (useful to command line users)
-  * Test programs     (useful to libdmtx developers)
-  * Language Wrappers (useful to non-C/C++ developers)
-
-The default installation will compile and install the core
-library and all three command line utilities. The test programs
-are compiled by running an additional "make check", and the
-language wrappers are built using instructions found in their
-specific directories.
-
-Users who only want the core library can disable the command line
-utilities by passing the following parameters to "configure"
-during installation:
-
-  --disable-dmtxread --disable-dmtxwrite --disable-dmtxquery
-
-This eliminates most software dependencies and helps to reduce
-compile times. However, these utilities provide a convenient way
-to test the library and to learn its behavior, so their inclusion
-is recommended if possible.
-
-Appendix A. at the end of this file provides a full list of the
-package components and their properties.
-
-
-3. Installation
------------------------------------------------------------------
-
-libdmtx uses GNU Autotools so installation should be familiar to
-veterans of free software. If your platform cannot easily run the
-Autotools scripts (e.g., MS Visual Studio) then refer to the
-appropriate platform-specific README.xxx located in this
-directory for alternate instructions.
 
 In theory the following 3 steps will compile and install libdmtx
 on your system:
@@ -78,31 +36,31 @@ error messages or if you want to customize beyond the defaults.
 
 Details on "configure" step
 ----------------------------------------
-If you obtained libdmtx from Subversion you may have received an
-error like "./configure: No such file or directory". Run this
-command and try again:
+If you obtained libdmtx from Git you may have received an error
+like "./configure: No such file or directory". Run this command
+and try again:
 
   $ ./autogen.sh
 
 The autogen.sh command requires autoconf, automake, libtool, and
 pkgconfig to be installed on your system.
 
-The configure script offers many options for customizing the
-build process, many of which are described in the INSTALL file in
-this directory. If the INSTALL file does not exist then you may
-need to run the "./autogen.sh" step first. Examples of common
-customizations include:
+Also, if you built and installed the libdmtx library from source
+it's like that configure gave you an error similar to this:
 
-  $ ./configure CC=/usr/local2/bin/gcc
-  $ ./configure --prefix=/your/custom/path
-  $ ./configure --disable-dmtxread --disable-dmtxwrite
+  configure: error: dmtxread/dmtxwrite requires libdmtx >= 0.7.0
+
+You can fix this by telling configure where to find libdmtx.pc:
+
+  $ ./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+Note: This path may be different on your system.
 
 Details on "make" step
 ----------------------------------------
 Errors encountered during the "make" step are often a result of
-missing software dependencies. These dependencies are listed in
-Appendix A. of this file. Install any missing software and try
-again.
+missing software dependencies. Install any missing software and
+try again.
 
 Details on "sudo make install" step
 ----------------------------------------
@@ -112,23 +70,8 @@ run this instead:
 
   $ make install
 
-And finally...
-----------------------------------------
-If you want to verify that everything is working properly you can
-optionally build the test programs like this:
 
-  $ make check
-
-This command will not perform any tests, but will build the
-programs that contain test logic: multi_test, rotate_test,
-simple_test, and unit_test.
-
-Note: multi_test and rotate_test contain extra dependencies due
-to their graphical nature, and are not terribly useful unless you
-need to test the library's internals.
-
-
-4. Basic Usage
+3. Basic Usage
 -----------------------------------------------------------------
 
 New users are encouraged to read the man pages for the library
@@ -171,7 +114,7 @@ the same message, but the overall barcode shape and its internal
 bit pattern might be different.
 
 
-5. Contact
+4. Contact
 -----------------------------------------------------------------
 
 Project website:       http://www.libdmtx.org
@@ -179,147 +122,4 @@ Documentation wiki:    http://libdmtx.wikidot.com
 SourceForge.net page:  http://www.sourceforge.net/projects/libdmtx
 OhLoh.net page:        https://www.ohloh.net/projects/libdmtx
 Open mailing list:     libdmtx-open_discussion@lists.sourceforge.net
-
-
-6. This Document
------------------------------------------------------------------
-
-This document is derived from the wiki page located at:
-
-  http://libdmtx.wikidot.com/general-instructions
-
-If you find an error or have additional helpful information,
-please edit the wiki directly with your updates.
-
-
-Appendix A. Full Listing of libdmtx Components
------------------------------------------------------------------
-
-Name:        libdmtx
-Type:        Core library
-Description: Data Matrix encoding/decoding logic
-Location:    libdmtx
-Build:       make
-Requires:    No dependencies
-
------------------------------------
-
-Name:        dmtxread
-Type:        Utility program
-Description: Read Data Matrix barcodes from the command line
-Location:    libdmtx/util/dmtxread
-Build:       make
-Requires:    ImageMagick
-Disable:     ./configure --disable-dmtxread
-
------------------------------------
-
-Name:        dmtxwrite
-Type:        Utility program
-Description: Create Data Matrix barcodes from the command line
-Location:    libdmtx/util/dmtxwrite
-Build:       make
-Requires:    ImageMagick
-Disable:     ./configure --disable-dmtxwrite
-
------------------------------------
-
-Name:        dmtxquery
-Type:        Utility program (currently non functional)
-Description: Query and merge scan results from dmtxread utility
-Location:    libdmtx/util/dmtxquery
-Build:       make
-Requires:    No dependencies
-Disable:     ./configure --disable-dmtxquery
-
------------------------------------
-
-Name:        libdmtx Cocoa wrapper
-Type:        Language wrapper
-Description: libdmtx Cocoa wrapper
-Location:    libdmtx/wrapper/cocoa
-Build:       See INSTALL file in libdmtx/wrapper/cocoa directory
-Requires:    OS X
-Disable:     Not included in default build
-
------------------------------------
-
-Name:        libdmtx Java wrapper
-Type:        Language wrapper
-Description: libdmtx Java wrapper
-Location:    libdmtx/wrapper/java
-Build:       See INSTALL file in libdmtx/wrapper/java directory
-Requires:    java
-Disable:     Not included in default build
-
------------------------------------
-
-Name:        libdmtx-php
-Type:        Language wrapper
-Description: PHP libdmtx wrapper
-Location:    libdmtx/wrapper/php
-Build:       See INSTALL file in libdmtx/wrapper/php directory
-Requires:    php, php-cli, php-common
-Disable:     Not included in default build
-
------------------------------------
-
-Name:        pydmtx
-Type:        Language wrapper
-Description: Python libdmtx wrapper
-Location:    libdmtx/wrapper/python
-Build:       See INSTALL file in libdmtx/wrapper/python directory
-Requires:    python, pil
-Disable:     Not included in default build
-
------------------------------------
-
-Name:        libdmtx-ruby
-Type:        Language wrapper
-Description: Ruby libdmtx wrapper
-Location:    libdmtx/wrapper/ruby
-Build:       See INSTALL file in libdmtx/wrapper/ruby directory
-Requires:    ruby, RMagick
-Disable:     Not included in default build
-
------------------------------------
-
-Name:        multi_test
-Type:        test program
-Description: Graphical program for visualizing scan behavior
-Location:    libdmtx/test/multi_test
-Build:       make check
-Requires:    SDL, SDL_image
-Disable:     Not included in default build
-
------------------------------------
-
-Name:        rotate_test
-Type:        test program
-Description: Scan simulated camera input from OpenGL in realtime
-Location:    libdmtx/test/rotate_test
-Build:       make check
-Requires:    mesa-libGL, mesa-libGLU, SDL, libpng
-Disable:     Not included in default build
-
------------------------------------
-
-Name:        simple_test
-Type:        test program
-Description: Simple round-trip encoding and decoding test
-Location:    libdmtx/test/simple_test
-Build:       make check
-Requires:    No dependencies
-Disable:     Not included in default build
-
------------------------------------
-
-Name:        unit_test
-Type:        test program
-Description: Unit test program
-Location:    libdmtx/test/unit_test
-Build:       make check
-Requires:    No dependencies
-Disable:     Not included in default build
-
------------------------------------
+Professional support:  www.dragonflylogic.com/products
