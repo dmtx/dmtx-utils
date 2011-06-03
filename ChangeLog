@@ -1,5 +1,9 @@
-Changes for libdmtx-utils
+Changes for dmtx-utils
 -----------------------------------------------------------------
+
+Version 0.7.4 [June 2011]
+  dmtxwrite: Change default encoder to optimize best
+  dmtxwrite: Fixed: Not waiting for EOF on standard input (Bug 2988977)
 
 version 0.7.2 [September 2009]
   Added initial macro decoding support (thanks Marlon!)
