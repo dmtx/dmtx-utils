@@ -1,8 +1,7 @@
-# Packaging commands (all run from libdmtx-utils root):
+# Packaging commands (all run from dmtx-utils root):
 # $ make distclean
 # $ make dist-bzip2
 # $ make dist-gzip
-# $ script/dist-image.sh
 
 ACLOCAL_AMFLAGS = -I m4
 AM_CPPFLAGS = -Wshadow -Wall -pedantic -ansi
@@ -35,7 +34,6 @@ EXTRA_DIST = KNOWNBUG \
 	script/check_comments.sh \
 	script/check_copyright.sh \
 	script/check_headers.pl \
-	script/check_keyword.sh \
 	script/check_license.sh \
 	script/check_spacing.sh \
 	script/check_todo.sh \
