@@ -6,9 +6,6 @@ Common Tasks
 Generate splint warnings
 $ splint -posix-strict-lib dmtx.c
 
-Tag release
-$ ?
-
 
 Release Checklist
 -----------------------------------------------------------------
@@ -25,8 +22,7 @@ Release Checklist
 
 5) o Write and finalize release documentation
 
-   o ChangeLog
-   o LICENSE                 o KNOWNBUG
+   o ChangeLog               o KNOWNBUG
    o NEWS                    o TODO
 
    o README
@@ -39,8 +35,7 @@ Release Checklist
 
 6) o Update version number in appropriate files
 
-   o configure.ac            o man/dmtxquery.1
-   o man/dmtxread.1          o man/dmtxwrite.1
+   o configure.ac
 
 7) o Update release date in appropriate files
 
@@ -53,23 +48,23 @@ Release Checklist
    o $ git pull # get any pending updates
    o # final commit
    o $ sudo make uninstall && make clean && make distclean
-   o $ ./autogen.sh && ./configure && make && make check && sudo make install
+   o $ ./autogen.sh && ./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && \
+          make && make check && sudo make install
    o # Run tests and confirm it works. Start step over if changes are needed.
 
 9) o Build and test tarballs
 
-   x $ cd ..
-   x $ git clone git://libdmtx.git.sourceforge.net/gitroot/libdmtx/libdmtx release
-   x $ cd release
-   x $ rm -Rf .git
-   x $ find . -type d -name ".git"
-   x $ ./autogen.sh && ./configure # don't build though
-   x $ make dist-gzip
-   x $ make dist-bzip2
-   x $ make dist-zip
-   x Verify no extraneous files made their way into the
-     distribution (especially in the wrapper directories)
-   x $ md5sum libdmtx-0.8.0.* > MD5SUM.txt
+   o $ cd ..
+   o $ git clone git://libdmtx.git.sourceforge.net/gitroot/libdmtx/dmtx-utils release
+   o $ cd release
+   o $ rm -Rf .git
+   o $ find . -type d -name ".git"
+   o $ ./autogen.sh && ./configure PKG_CONFIG_PATH=/usr/local/lib/pkgconfig # don't build though
+   o $ make dist-gzip
+   o $ make dist-bzip2
+   o $ make dist-zip
+   o # Verify no extraneous files made their way into the distribution
+   o $ md5sum libdmtx-0.8.0.* > MD5SUM.txt
 
 10) o SourceForge release administration
 
@@ -88,6 +83,3 @@ Release Checklist
     o $ ./configure
     o $ git commit -a
     o $ git push
-
-13) o Update libdmtx.org with news item, download entry, and new
-      project status
