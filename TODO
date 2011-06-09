@@ -28,6 +28,7 @@ FOCUS: region detection refinement, multiple barcode scanning, structured append
   o dmtxwrite: Consider adding "--strict" for single scheme requests (or make strict default?)
   o dmtxquery: Write XML for dmtxquery consumption
   o dmtxquery: Initial working version (parses XML)
+  o project:   Add missing getopt_long files
   o project:   Version numbers should be maintained separate from library
   o project:   Consider --disable-magick, while providing native PNM support to utils
   o project:   Any way to ask Magick to filter out GS (and other) warnings?
