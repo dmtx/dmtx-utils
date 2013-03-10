@@ -1,7 +1,7 @@
-#!/bin/sh
+#! /usr/bin/env sh
 
 # Create empty m4 directory if missing
-if [[ ! -d "m4" ]]; then
+if [ ! -d "m4" ]; then
    echo "autogen.sh: creating empty m4 directory"
    mkdir m4
 fi
