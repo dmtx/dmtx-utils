@@ -60,7 +60,7 @@ if test x$dmtxwrite = xyes; then
 fi
 
 if test x$dmtxread = xyes -o x$dmtxwrite = xyes; then
-   PKG_CHECK_MODULES(MAGICK, Wand >= 6.2.4, [], AC_MSG_ERROR([dmtxread/dmtxwrite requires Wand >= 6.2.4]))
+   PKG_CHECK_MODULES(MAGICK, MagickWand >= 6.2.4, [], AC_MSG_ERROR([dmtxread/dmtxwrite requires MagickWand >= 6.2.4]))
    AC_SUBST(MAGICK_CFLAGS)
    AC_SUBST(MAGICK_LIBS)
 fi
