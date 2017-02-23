@@ -1,10 +1,12 @@
-AC_INIT([dmtx-utils], [0.7.5], [mike@dragonflylogic.com])
+AC_INIT([dmtx-utils], [0.7.5], [https://github.com/dmtx/dmtx-utils/issues], [dmtx-utils], [https://github.com/dmtx/dmtx-utils])
 AM_INIT_AUTOMAKE([-Wall -Werror gnu])
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_LIBOBJ_DIR([common])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile])
+
+AC_PATH_PROG([PKG_CONFIG], [pkg-config], [no])
 
 AC_PROG_CC
 AC_PROG_LIBTOOL
@@ -61,6 +63,13 @@ fi
 
 if test x$dmtxread = xyes -o x$dmtxwrite = xyes; then
    PKG_CHECK_MODULES(MAGICK, MagickWand >= 6.2.4, [], AC_MSG_ERROR([dmtxread/dmtxwrite requires MagickWand >= 6.2.4]))
+   AH_TEMPLATE([IM_API_7], [Define to 1 if version of installed ImageMagick library is 7.x])
+   AS_CASE(
+     [`${PKG_CONFIG} --modversion MagickWand`],
+     [7.[[0-9]]*],
+     [AC_DEFINE([IM_API_7], [1])]
+   )
+
    AC_SUBST(MAGICK_CFLAGS)
    AC_SUBST(MAGICK_LIBS)
 fi

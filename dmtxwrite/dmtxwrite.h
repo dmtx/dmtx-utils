@@ -34,9 +34,15 @@ Contact: mike@dragonflylogic.com
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <assert.h>
-#include <wand/magick-wand.h>
+
 #include <dmtx.h>
 #include "../common/dmtxutil.h"
+
+#ifdef IM_API_7
+#include <MagickWand/MagickWand.h>
+#else
+#include <wand/magick-wand.h>
+#endif
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>

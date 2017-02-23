@@ -33,9 +33,20 @@ Contact: mike@dragonflylogic.com
 #include <math.h>
 #include <stdarg.h>
 #include <assert.h>
-#include <wand/magick-wand.h>
+
 #include <dmtx.h>
 #include "../common/dmtxutil.h"
+
+#ifdef IM_API_7
+#include <MagickWand/MagickWand.h>
+#else
+#include <wand/magick-wand.h>
+#endif
+
+#if MagickLibVersion > 0x645
+#define MagickGetImagePixels MagickExportImagePixels
+#endif
+
 
 #if ENABLE_NLS
 # include <libintl.h>
