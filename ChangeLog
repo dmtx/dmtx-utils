@@ -1,6 +1,12 @@
 Changes for dmtx-utils
 -----------------------------------------------------------------
 
+Version 0.7.5 [February 2017]
+  Some minor code fixes
+  Compatibility fixes
+  Compatibility with ImageMagick-7
+  Since now, look in git log (or github commit history) for further ChangeLog
+
 Version 0.7.4 [June 2011]
   dmtxwrite: Change default encoder to optimize best
   dmtxwrite: Fixed: Not waiting for EOF on standard input (Bug 2988977)
