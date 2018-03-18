@@ -78,6 +78,7 @@ typedef struct {
    int bgColor[3];
    int mosaic;
    int dpi;
+   int gs1;
    int verbose;
 } UserOptions;
 
