@@ -81,6 +81,7 @@ typedef struct {
    int shrinkMax;       /* -S, --shrink */
    int shrinkMin;       /* -S, --shrink (if range specified) */
    int unicode;         /* -U, --unicode */
+   int gs1;             /* -G, --gs1 */
    int verbose;         /* -v, --verbose */
 } UserOptions;
 

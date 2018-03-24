@@ -63,6 +63,10 @@ main(int argc, char *argv[])
    dmtxEncodeSetProp(enc, DmtxPropScheme, opt.scheme);
    dmtxEncodeSetProp(enc, DmtxPropSizeRequest, opt.sizeIdx);
 
+   if(opt.gs1 != DmtxUndefined) {
+      dmtxEncodeSetProp(enc, DmtxPropFnc1, opt.gs1);
+   }
+
    /* Read input data into buffer */
    codeBufferSize = ReadInputData(codeBuffer, &opt);
 
@@ -128,6 +132,7 @@ GetDefaultOptions(void)
    opt.mosaic = DmtxFalse;
    opt.dpi = DmtxUndefined;
    opt.verbose = DmtxFalse;
+   opt.gs1 = DmtxUndefined;
 
    return opt;
 }
@@ -163,6 +168,7 @@ HandleArgs(UserOptions *opt, int *argcp, char **argvp[])
          {"bg-color",         required_argument, NULL, 'B'},
          {"mosaic",           no_argument,       NULL, 'M'},
          {"rotate",           required_argument, NULL, 'R'},
+         {"gs1",              required_argument, NULL, 'G'},
          {"verbose",          no_argument,       NULL, 'v'},
          {"version",          no_argument,       NULL, 'V'},
          {"help",             no_argument,       NULL,  0 },
@@ -172,7 +178,7 @@ HandleArgs(UserOptions *opt, int *argcp, char **argvp[])
    programName = Basename((*argvp)[0]);
 
    for(;;) {
-      optchr = getopt_long(*argcp, *argvp, "cd:m:e:f:lo:pr:s:C:B:MR:vV", longOptions, &longIndex);
+      optchr = getopt_long(*argcp, *argvp, "cd:m:e:f:lo:pr:s:C:B:MR:G:vV", longOptions, &longIndex);
       if(optchr == -1)
          break;
 
@@ -292,6 +298,11 @@ HandleArgs(UserOptions *opt, int *argcp, char **argvp[])
          case 'v':
             opt->verbose = DmtxTrue;
             break;
+         case 'G':
+            err = StringToInt(&(opt->gs1), optarg, &ptr);
+            if(err != DmtxPass || opt->gs1 <= 0 || opt->gs1 > 255 || *ptr != '\0')
+               FatalError(EX_USAGE, _("Invalid gs1 character specified \"%s\""), optarg);
+            break;
          case 'V':
             fprintf(stdout, "%s version %s\n", programName, DmtxVersion);
             fprintf(stdout, "libdmtx version %s\n", dmtxVersion());
@@ -402,6 +413,7 @@ OPTIONS:\n"), programName, programName);
   -M, --mosaic                create Data Mosaic (non-standard)\n"));
       fprintf(stdout, _("\
   -R, --rotate=DEGREES        rotation angle (degrees)\n\
+  -G, --gs1=N                 enable GS1 mode and define character to represent FNC1\n\
   -v, --verbose               use verbose messages\n\
   -V, --version               print version information\n\
       --help                  display this help and exit\n"));

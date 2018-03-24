@@ -230,6 +230,7 @@ GetDefaultOptions(void)
    opt.shrinkMax = 1;
    opt.unicode = DmtxFalse;
    opt.verbose = DmtxFalse;
+   opt.gs1 = DmtxUndefined;
 
    return opt;
 }
@@ -276,6 +277,7 @@ HandleArgs(UserOptions *opt, int *fileIndex, int *argcp, char **argvp[])
          {"corners",          no_argument,       NULL, 'R'},
          {"shrink",           required_argument, NULL, 'S'},
          {"unicode",          no_argument,       NULL, 'U'},
+         {"gs1",              required_argument, NULL, 'G'},
          {"verbose",          no_argument,       NULL, 'v'},
          {"version",          no_argument,       NULL, 'V'},
          {"help",             no_argument,       NULL,  0 },
@@ -288,7 +290,7 @@ HandleArgs(UserOptions *opt, int *fileIndex, int *argcp, char **argvp[])
 
    for(;;) {
       optchr = getopt_long(*argcp, *argvp,
-            "ce:E:g:lm:np:q:r:s:t:x:X:y:Y:vC:DMN:PRS:UV", longOptions, &longIndex);
+            "ce:E:g:lm:np:q:r:s:t:x:X:y:Y:vC:DMN:PRS:G:UV", longOptions, &longIndex);
       if(optchr == -1)
          break;
 
@@ -418,6 +420,11 @@ HandleArgs(UserOptions *opt, int *fileIndex, int *argcp, char **argvp[])
          case 'U':
             opt->unicode = DmtxTrue;
             break;
+         case 'G':
+            err = StringToInt(&(opt->gs1), optarg, &ptr);
+            if(err != DmtxPass || opt->gs1 <= 0 || opt->gs1 > 255 || *ptr != '\0')
+               FatalError(EX_USAGE, _("Invalid gs1 character specified \"%s\""), optarg);
+            break;
          case 'V':
             fprintf(stdout, "%s version %s\n", programName, DmtxVersion);
             fprintf(stdout, "libdmtx version %s\n", dmtxVersion());
@@ -490,6 +497,7 @@ OPTIONS:\n"), programName, programName);
   -R, --corners               prefix decoded message with corner locations\n\
   -S, --shrink=N              internally shrink image by a factor of N\n\
   -U, --unicode               print Extended ASCII in Unicode (UTF-8)\n\
+  -G, --gs1=N                 enable GS1 mode and define character to represent FNC1\n\
   -v, --verbose               use verbose messages\n\
   -V, --version               print program version information\n\
       --help                  display this help and exit\n"));
@@ -512,6 +520,11 @@ SetDecodeOptions(DmtxDecode *dec, DmtxImage *img, UserOptions *opt)
 
    err = dmtxDecodeSetProp(dec, DmtxPropScanGap, opt->scanGap);
    RETURN_IF_FAILED(err)
+
+   if(opt->gs1 != DmtxUndefined) {
+      err = dmtxDecodeSetProp(dec, DmtxPropFnc1, opt->gs1);
+      RETURN_IF_FAILED(err)
+   }
 
    if(opt->edgeMin != DmtxUndefined) {
       err = dmtxDecodeSetProp(dec, DmtxPropEdgeMin, opt->edgeMin);
