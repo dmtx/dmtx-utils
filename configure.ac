@@ -1,4 +1,4 @@
-AC_INIT([dmtx-utils], [0.7.5], [https://github.com/dmtx/dmtx-utils/issues], [dmtx-utils], [https://github.com/dmtx/dmtx-utils])
+AC_INIT([dmtx-utils], [0.7.7], [https://github.com/dmtx/dmtx-utils/issues], [dmtx-utils], [https://github.com/dmtx/dmtx-utils])
 AM_INIT_AUTOMAKE([-Wall -Werror gnu])
 
 AC_CONFIG_MACRO_DIR([m4])
