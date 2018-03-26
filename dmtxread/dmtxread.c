@@ -426,8 +426,8 @@ HandleArgs(UserOptions *opt, int *fileIndex, int *argcp, char **argvp[])
                FatalError(EX_USAGE, _("Invalid gs1 character specified \"%s\""), optarg);
             break;
          case 'V':
-            fprintf(stdout, "%s version %s\n", programName, DmtxVersion);
-            fprintf(stdout, "libdmtx version %s\n", dmtxVersion());
+            fprintf(stderr, "%s version %s\n", programName, DmtxVersion);
+            fprintf(stderr, "libdmtx version %s\n", dmtxVersion());
             exit(EX_OK);
             break;
          default:
@@ -453,8 +453,8 @@ ShowUsage(int status)
       fprintf(stderr, _("Try `%s --help' for more information.\n"), programName);
    }
    else {
-      fprintf(stdout, _("Usage: %s [OPTION]... [FILE]...\n"), programName);
-      fprintf(stdout, _("\
+      fprintf(stderr, _("Usage: %s [OPTION]... [FILE]...\n"), programName);
+      fprintf(stderr, _("\
 Scan image FILE for Data Matrix barcodes and print decoded results to\n\
 standard output.  Note that %s may find multiple barcodes in one image.\n\
 \n\
@@ -463,37 +463,37 @@ Example: Scan top third of IMAGE001.png and stop after first barcode is found:\n
    %s -n -Y33%% -N1 IMAGE001.png\n\
 \n\
 OPTIONS:\n"), programName, programName);
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -c, --codewords             print codewords extracted from barcode pattern\n\
   -e, --minimum-edge=N        pixel length of smallest expected edge in image\n\
   -E, --maximum-edge=N        pixel length of largest expected edge in image\n\
   -g, --gap=N                 use scan grid with gap of N pixels between lines\n\
   -l, --list-formats          list supported image formats\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -m, --milliseconds=N        stop scan after N milliseconds (per image)\n\
   -n, --newline               print newline character at the end of decoded data\n\
   -p, --page=N                only scan Nth page of images\n\
   -q, --square-deviation=N    allow non-squareness of corners in degrees (0-90)\n\
   -r, --resolution=N          resolution for vector images (PDF, SVG, etc...)\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -s, --symbol-size=[asr|RxC] only consider barcodes of specific size or shape\n\
         a = All sizes         [default]\n\
         s = Only squares\n\
         r = Only rectangles\n\
       RxC = Exactly this many rows and columns (10x10, 8x18, etc...)\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -t, --threshold=N           ignore weak edges below threshold N (1-100)\n\
   -x, --x-range-min=N[%%]      do not scan pixels to the left of N (or N%%)\n\
   -X, --x-range-max=N[%%]      do not scan pixels to the right of N (or N%%)\n\
   -y, --y-range-min=N[%%]      do not scan pixels below N (or N%%)\n\
   -Y, --y-range-max=N[%%]      do not scan pixels above N (or N%%)\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -C, --corrections-max=N     correct at most N errors (0 = correction disabled)\n\
   -D, --diagnose              make copy of image with additional diagnostic data\n\
   -M, --mosaic                interpret detected regions as Data Mosaic barcodes\n\
   -N, --stop-after=N          stop scanning after Nth barcode is returned\n\
   -P, --page-numbers          prefix decoded message with fax/tiff page number\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -R, --corners               prefix decoded message with corner locations\n\
   -S, --shrink=N              internally shrink image by a factor of N\n\
   -U, --unicode               print Extended ASCII in Unicode (UTF-8)\n\
@@ -501,7 +501,7 @@ OPTIONS:\n"), programName, programName);
   -v, --verbose               use verbose messages\n\
   -V, --version               print program version information\n\
       --help                  display this help and exit\n"));
-      fprintf(stdout, _("\nReport bugs to <mike@dragonflylogic.com>.\n"));
+      fprintf(stderr, _("\nReport bugs to <mike@dragonflylogic.com>.\n"));
    }
 
    exit(status);
@@ -608,35 +608,35 @@ PrintStats(DmtxDecode *dec, DmtxRegion *reg, DmtxMessage *msg,
       if(rotateInt >= 360)
          rotateInt -= 360;
 
-      fprintf(stdout, "--------------------------------------------------\n");
-      fprintf(stdout, "       Matrix Size: %d x %d\n",
+      fprintf(stderr, "--------------------------------------------------\n");
+      fprintf(stderr, "       Matrix Size: %d x %d\n",
             dmtxGetSymbolAttribute(DmtxSymAttribSymbolRows, reg->sizeIdx),
             dmtxGetSymbolAttribute(DmtxSymAttribSymbolCols, reg->sizeIdx));
-      fprintf(stdout, "    Data Codewords: %d (capacity %d)\n",
+      fprintf(stderr, "    Data Codewords: %d (capacity %d)\n",
             dataWordLength - msg->padCount, dataWordLength);
-      fprintf(stdout, "   Error Codewords: %d\n",
+      fprintf(stderr, "   Error Codewords: %d\n",
             dmtxGetSymbolAttribute(DmtxSymAttribSymbolErrorWords, reg->sizeIdx));
-      fprintf(stdout, "      Data Regions: %d x %d\n",
+      fprintf(stderr, "      Data Regions: %d x %d\n",
             dmtxGetSymbolAttribute(DmtxSymAttribHorizDataRegions, reg->sizeIdx),
             dmtxGetSymbolAttribute(DmtxSymAttribVertDataRegions, reg->sizeIdx));
-      fprintf(stdout, "Interleaved Blocks: %d\n",
+      fprintf(stderr, "Interleaved Blocks: %d\n",
             dmtxGetSymbolAttribute(DmtxSymAttribInterleavedBlocks, reg->sizeIdx));
-      fprintf(stdout, "    Rotation Angle: %d\n", rotateInt);
-      fprintf(stdout, "          Corner 0: (%0.1f, %0.1f)\n", p00.X, height - 1 - p00.Y);
-      fprintf(stdout, "          Corner 1: (%0.1f, %0.1f)\n", p10.X, height - 1 - p10.Y);
-      fprintf(stdout, "          Corner 2: (%0.1f, %0.1f)\n", p11.X, height - 1 - p11.Y);
-      fprintf(stdout, "          Corner 3: (%0.1f, %0.1f)\n", p01.X, height - 1 - p01.Y);
-      fprintf(stdout, "--------------------------------------------------\n");
+      fprintf(stderr, "    Rotation Angle: %d\n", rotateInt);
+      fprintf(stderr, "          Corner 0: (%0.1f, %0.1f)\n", p00.X, height - 1 - p00.Y);
+      fprintf(stderr, "          Corner 1: (%0.1f, %0.1f)\n", p10.X, height - 1 - p10.Y);
+      fprintf(stderr, "          Corner 2: (%0.1f, %0.1f)\n", p11.X, height - 1 - p11.Y);
+      fprintf(stderr, "          Corner 3: (%0.1f, %0.1f)\n", p01.X, height - 1 - p01.Y);
+      fprintf(stderr, "--------------------------------------------------\n");
    }
 
    if(opt->pageNumbers == DmtxTrue)
-      fprintf(stdout, "%d:", imgPageIndex + 1);
+      fprintf(stderr, "%d:", imgPageIndex + 1);
 
    if(opt->corners == DmtxTrue) {
-      fprintf(stdout, "%d,%d:", (int)(p00.X + 0.5), height - 1 - (int)(p00.Y + 0.5));
-      fprintf(stdout, "%d,%d:", (int)(p10.X + 0.5), height - 1 - (int)(p10.Y + 0.5));
-      fprintf(stdout, "%d,%d:", (int)(p11.X + 0.5), height - 1 - (int)(p11.Y + 0.5));
-      fprintf(stdout, "%d,%d:", (int)(p01.X + 0.5), height - 1 - (int)(p01.Y + 0.5));
+      fprintf(stderr, "%d,%d:", (int)(p00.X + 0.5), height - 1 - (int)(p00.Y + 0.5));
+      fprintf(stderr, "%d,%d:", (int)(p10.X + 0.5), height - 1 - (int)(p10.Y + 0.5));
+      fprintf(stderr, "%d,%d:", (int)(p11.X + 0.5), height - 1 - (int)(p11.Y + 0.5));
+      fprintf(stderr, "%d,%d:", (int)(p01.X + 0.5), height - 1 - (int)(p01.Y + 0.5));
    }
 
    return DmtxPass;
@@ -732,7 +732,7 @@ ListImageFormats(void)
    if(list == NULL)
       return;
 
-   fprintf(stdout, "\n");
+   fprintf(stderr, "\n");
 
    colCount = 7;
    rowCount = totalCount / colCount;
@@ -743,10 +743,10 @@ ListImageFormats(void)
       col = i % colCount;
       row = i / colCount;
       idx = col * rowCount + row;
-      fprintf(stdout, "%10s", (idx < totalCount) ? list[col * rowCount + row] : " ");
-      fprintf(stdout, "%s", (col + 1 < colCount) ? " " : "\n");
+      fprintf(stderr, "%10s", (idx < totalCount) ? list[col * rowCount + row] : " ");
+      fprintf(stderr, "%s", (col + 1 < colCount) ? " " : "\n");
    }
-   fprintf(stdout, "\n");
+   fprintf(stderr, "\n");
 
    MagickRelinquishMemory(list);
 }

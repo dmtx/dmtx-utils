@@ -201,7 +201,7 @@ HandleArgs(UserOptions *opt, int *argcp, char **argvp[])
             break;
          case 'e':
             if(strlen(optarg) != 1) {
-               fprintf(stdout, "Invalid encodation scheme \"%s\"\n", optarg);
+               fprintf(stderr, "Invalid encodation scheme \"%s\"\n", optarg);
                return DmtxFail;
             }
             switch(*optarg) {
@@ -210,7 +210,7 @@ HandleArgs(UserOptions *opt, int *argcp, char **argvp[])
                   break;
                case 'f':
                   opt->scheme = DmtxSchemeAutoFast;
-                  fprintf(stdout, "\"Fast optimized\" not implemented\n");
+                  fprintf(stderr, "\"Fast optimized\" not implemented\n");
                   return DmtxFail;
                case 'a':
                   opt->scheme = DmtxSchemeAscii;
@@ -231,7 +231,7 @@ HandleArgs(UserOptions *opt, int *argcp, char **argvp[])
                   opt->scheme = DmtxSchemeBase256;
                   break;
                default:
-                  fprintf(stdout, "Invalid encodation scheme \"%s\"\n", optarg);
+                  fprintf(stderr, "Invalid encodation scheme \"%s\"\n", optarg);
                   return DmtxFail;
             }
             break;
@@ -279,13 +279,13 @@ HandleArgs(UserOptions *opt, int *argcp, char **argvp[])
             opt->color[0] = 0;
             opt->color[1] = 0;
             opt->color[2] = 0;
-            fprintf(stdout, "Option \"%c\" not implemented\n", optchr);
+            fprintf(stderr, "Option \"%c\" not implemented\n", optchr);
             break;
          case 'B':
             opt->bgColor[0] = 255;
             opt->bgColor[1] = 255;
             opt->bgColor[2] = 255;
-            fprintf(stdout, "Option \"%c\" not implemented\n", optchr);
+            fprintf(stderr, "Option \"%c\" not implemented\n", optchr);
             break;
          case 'M':
             opt->mosaic = DmtxTrue;
@@ -304,8 +304,8 @@ HandleArgs(UserOptions *opt, int *argcp, char **argvp[])
                FatalError(EX_USAGE, _("Invalid gs1 character specified \"%s\""), optarg);
             break;
          case 'V':
-            fprintf(stdout, "%s version %s\n", programName, DmtxVersion);
-            fprintf(stdout, "libdmtx version %s\n", dmtxVersion());
+            fprintf(stderr, "%s version %s\n", programName, DmtxVersion);
+            fprintf(stderr, "libdmtx version %s\n", dmtxVersion());
             exit(0);
             break;
          default:
@@ -370,54 +370,54 @@ ShowUsage(int status)
       fprintf(stderr, _("Try `%s --help' for more information.\n"), programName);
    }
    else {
-      fprintf(stdout, _("Usage: %s [OPTION]... [FILE]\n"), programName);
-      fprintf(stdout, _("\
+      fprintf(stderr, _("Usage: %s [OPTION]... [FILE]\n"), programName);
+      fprintf(stderr, _("\
 Encode FILE or standard input and write Data Matrix image\n\
 \n\
 Example: %s message.txt -o message.png\n\
 Example: echo -n 123456 | %s -o message.png\n\
 \n\
 OPTIONS:\n"), programName, programName);
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -c, --codewords             print codeword listing\n\
   -d, --module=N              module size (in pixels)\n\
   -m, --margin=N              margin size (in pixels)\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -e, --encoding=[abcet8x]    primary encodation scheme\n\
             a = ASCII [default]   b = Best optimized [beta]\n\
             c = C40               e = EDIFACT\n\
             t = Text              8 = Base 256\n\
             x = X12\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -f, --format=FORMAT         PNG [default], TIF, GIF, PDF, etc...\n\
   -l, --list-formats          list supported image formats\n\
   -o, --output=FILE           output filename\n\
   -p, --preview               print ASCII art preview\n\
   -r, --resolution=N          set image print resolution (dpi)\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -s, --symbol-size=[sr|RxC]  symbol size (default \"s\")\n\
         Automatic size options:\n\
             s = Auto square         r = Auto rectangle\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
         Manual size options for square symbols:\n\
             10x10   12x12   14x14   16x16   18x18   20x20\n\
             22x22   24x24   26x26   32x32   36x36   40x40\n\
             44x44   48x48   52x52   64x64   72x72   80x80\n\
             88x88   96x96 104x104 120x120 132x132 144x144\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
         Manual size options for rectangle symbols:\n\
              8x18    8x32   12x26   12x36   16x36   16x48\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -C, --color=COLOR           barcode color (not implemented)\n\
   -B, --bg-color=COLOR        background color (not implemented)\n\
   -M, --mosaic                create Data Mosaic (non-standard)\n"));
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
   -R, --rotate=DEGREES        rotation angle (degrees)\n\
   -G, --gs1=N                 enable GS1 mode and define character to represent FNC1\n\
   -v, --verbose               use verbose messages\n\
   -V, --version               print version information\n\
       --help                  display this help and exit\n"));
-      fprintf(stdout, _("\nReport bugs to <mike@dragonflylogic.com>.\n"));
+      fprintf(stderr, _("\nReport bugs to <mike@dragonflylogic.com>.\n"));
    }
 
    exit(status);
@@ -463,7 +463,7 @@ ListImageFormats(void)
    if(list == NULL)
       return;
 
-   fprintf(stdout, "\n");
+   fprintf(stderr, "\n");
 
    colCount = 7;
    rowCount = totalCount / colCount;
@@ -474,10 +474,10 @@ ListImageFormats(void)
       col = i % colCount;
       row = i / colCount;
       idx = col * rowCount + row;
-      fprintf(stdout, "%10s", (idx < totalCount) ? list[col * rowCount + row] : " ");
-      fprintf(stdout, "%s", (col + 1 < colCount) ? " " : "\n");
+      fprintf(stderr, "%10s", (idx < totalCount) ? list[col * rowCount + row] : " ");
+      fprintf(stderr, "%s", (col + 1 < colCount) ? " " : "\n");
    }
-   fprintf(stdout, "\n");
+   fprintf(stderr, "\n");
 
    MagickRelinquishMemory(list);
 }

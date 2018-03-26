@@ -100,8 +100,8 @@ HandleArgs(UserOptions *options, int *argcp, char **argvp[])
             ShowUsage(0);
             break;
          case 'V':
-            fprintf(stdout, "%s version %s\n", programName, DmtxVersion);
-            fprintf(stdout, "libdmtx version %s\n", dmtxVersion());
+            fprintf(stderr, "%s version %s\n", programName, DmtxVersion);
+            fprintf(stderr, "libdmtx version %s\n", dmtxVersion());
             exit(0);
             break;
          default:
@@ -127,8 +127,8 @@ ShowUsage(int status)
       fprintf(stderr, _("Try `%s --help' for more information.\n"), programName);
    }
    else {
-      fprintf(stdout, _("Usage: %s PROPERTY [OPTION]... [FILE]...\n"), programName);
-      fprintf(stdout, _("\
+      fprintf(stderr, _("Usage: %s PROPERTY [OPTION]... [FILE]...\n"), programName);
+      fprintf(stderr, _("\
 Extract information from the XML output from dmtxread for individual or\n\
 grouped barcode scan results.\n\
 \n\
@@ -136,7 +136,7 @@ Example: dmtxread barcode.png | %s barcode.count\n\
 Example: %s barcode.2.rotation scanresults.xml\n\
 \n\
 PROPERTY:\n"), programName, programName);
-      fprintf(stdout, _("\
+      fprintf(stderr, _("\
    barcode.count             count of all barcodes found in image\n\
    barcode.N.BPROP           print BPROP property of Nth barcode\n\
 \n\
@@ -157,8 +157,8 @@ PROPERTY:\n"), programName, programName);
 OPTIONS:\n\
   -V, --version              print program version information\n\
       --help                 display this help and exit\n"));
-      fprintf(stdout, _("\nReport bugs to <mike@dragonflylogic.com>.\n"));
-      fprintf(stdout, "\n\
+      fprintf(stderr, _("\nReport bugs to <mike@dragonflylogic.com>.\n"));
+      fprintf(stderr, "\n\
 ***************************************************************\n\
 **** This program currently does nothing besides printing  ****\n\
 **** this help screen. This program is just a placeholder. ****\n\
