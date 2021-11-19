@@ -18,7 +18,11 @@ if ENABLE_DMTXWRITE
    DMTXWRITE_DIR = dmtxwrite
 endif
 
-SUBDIRS = . $(DMTXQUERY_DIR) $(DMTXREAD_DIR) $(DMTXWRITE_DIR)
+if ENABLE_DMTXTRACT
+   DMTXTRACT_DIR = dmtxtract
+endif
+
+SUBDIRS = . $(DMTXQUERY_DIR) $(DMTXREAD_DIR) $(DMTXWRITE_DIR) $(DMTXTRACT_DIR)
 
 dist_man_MANS = man/dmtxread.1 man/dmtxwrite.1 man/dmtxquery.1
 
