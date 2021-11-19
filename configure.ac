@@ -45,9 +45,17 @@ AC_ARG_ENABLE(
    [dmtxwrite="yes"]
 )
 
+AC_ARG_ENABLE(
+   [dmtxtract],
+   AS_HELP_STRING([--disable-dmtxtract], [do not build the dmtxtract utility]),
+   [dmtxtract="$enableval"],
+   [dmtxtract="yes"]
+)
+
 AM_CONDITIONAL([ENABLE_DMTXQUERY], [test x$dmtxquery = xyes])
 AM_CONDITIONAL([ENABLE_DMTXREAD], [test x$dmtxread = xyes])
 AM_CONDITIONAL([ENABLE_DMTXWRITE], [test x$dmtxwrite = xyes])
+AM_CONDITIONAL([ENABLE_DMTXTRACT], [test x$dmtxtract = xyes])
 
 if test x$dmtxquery = xyes; then
    AC_CONFIG_FILES([dmtxquery/Makefile])
@@ -61,8 +69,12 @@ if test x$dmtxwrite = xyes; then
    AC_CONFIG_FILES([dmtxwrite/Makefile])
 fi
 
-if test x$dmtxread = xyes -o x$dmtxwrite = xyes; then
-   PKG_CHECK_MODULES(MAGICK, MagickWand >= 6.2.4, [], AC_MSG_ERROR([dmtxread/dmtxwrite requires MagickWand >= 6.2.4]))
+if test x$dmtxtract = xyes; then
+   AC_CONFIG_FILES([dmtxtract/Makefile])
+fi
+
+if test x$dmtxread = xyes -o x$dmtxwrite = xyes -o x$dmtxtract = xyes; then
+   PKG_CHECK_MODULES(MAGICK, MagickWand >= 6.2.4, [], AC_MSG_ERROR([dmtxread/dmtxwrite/dmtxtract requires MagickWand >= 6.2.4]))
    AH_TEMPLATE([IM_API_7], [Define to 1 if version of installed ImageMagick library is 7.x])
    AS_CASE(
      [`${PKG_CONFIG} --modversion MagickWand`],
