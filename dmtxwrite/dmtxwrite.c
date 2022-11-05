@@ -196,7 +196,7 @@ HandleArgs(UserOptions *opt, int *argcp, char **argvp[])
             break;
          case 'm':
             err = StringToInt(&opt->marginSize, optarg, &ptr);
-            if(err != DmtxPass || opt->marginSize <= 0 || *ptr != '\0')
+            if(err != DmtxPass || opt->marginSize < 0 || *ptr != '\0')
                FatalError(EX_USAGE, _("Invalid margin size specified \"%s\""), optarg);
             break;
          case 'e':
