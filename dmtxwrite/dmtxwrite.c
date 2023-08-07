@@ -340,7 +340,7 @@ ReadInputData(unsigned char *codeBuffer, UserOptions *opt)
 
    /* Read input contents into buffer */
    for(bytesReadTotal = 0;; bytesReadTotal += bytesRead) {
-      bytesRead = read(fd, codeBuffer + bytesReadTotal, DMTXWRITE_BUFFER_SIZE);
+      bytesRead = read(fd, codeBuffer + bytesReadTotal, DMTXWRITE_BUFFER_SIZE - bytesReadTotal);
       if(bytesRead == 0)
          break;
 
