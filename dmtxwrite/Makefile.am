@@ -10,6 +10,6 @@ dmtxwrite_LDFLAGS = $(DMTX_LIBS) $(MAGICK_LIBS)
 dmtxwrite_LDADD = $(LIBOBJS)
 
 dmtxwrite_debug_SOURCES = dmtxwrite.c dmtxwrite.h ../common/dmtxutil.c ../common/dmtxutil.h
-dmtxwrite_debug_CFLAGS = $(DMTX_FLAGS) $(MAGICK_CFLAGS) -D_MAGICK_CONFIG_H
+dmtxwrite_debug_CFLAGS = $(DMTX_CFLAGS) $(MAGICK_CFLAGS) -D_MAGICK_CONFIG_H
 dmtxwrite_debug_LDFLAGS = -static $(DMTX_LIBS) $(MAGICK_LIBS)
 dmtxwrite_debug_LDADD = $(LIBOBJS)
