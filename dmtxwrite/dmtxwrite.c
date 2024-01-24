@@ -455,7 +455,7 @@ ListImageFormats(void)
    int i, idx;
    int row, rowCount;
    int col, colCount;
-   unsigned long totalCount;
+   size_t totalCount;
    char **list;
 
    list = MagickQueryFormats("*", &totalCount);
